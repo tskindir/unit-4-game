@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Crystal Collector</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="main.js"></script>
+</head>
+<body>
+    <h1>Crystal Collector</h1>
+    <div>You will be given a random number at the start of the game.</div>
+    <div>There are four crystals below. By Clicking on a crystal you will add a specific amount of points to your total score.</div>
+    <div>You win the game by matching your total score to random number, you lose the game if your total score goes above the random number.</div>
+    <div>The value of each crystal is hidden from you until you click on it.</div>
+    <div>Each time when the game starts, the game will change the values of each crystal.</div>
+
+    <div id="targetscore">0</div>
+
+    <img src="assets/images/red.png" id="red">
+    <img src="assets/images/blue.png" id="blue">
+    <img src="assets/images/yellow.png" id="yellow">
+    <img src="assets/images/green.png" id="green">
+
+    <div>Wins : <span id="wins"></span></div>
+    <div>Losses : <span id="losses"></span></div>
+
+    <div>Your total score is : </div>
+    
+    <div id="playerscore">0</div>
+
+    <script>
+        redVal = 0;
+        blueVal = 0;
+        yellowVal = 0;
+        greenVal = 0;
+
+        wins = 0;
+        losses = 0;
+        playerScore = 0;
+        targetScore = 0;
+
+        isMatchOver = false;
+        
+
+        //gets crystal value
+        function getCrystalValue() {
+            return Math.floor(Math.random() *12)+1;
+        }
+
+        //console.log(getCrystalValue());
+
+        //gets target score
+        function getTargetScore() {
+            return Math.floor(Math.random() *102)+19;
+        }
+
+        //console.log(getTargetScore());
+        
+        //when match is over get new crystal value new target score and update w/l
+
+        //assign a random value of 1-12 for each crystal
+
+        redVal = getCrystalValue();
+        blueVal = getCrystalValue();
+        yellowVal = getCrystalValue();
+        greenVal = getCrystalValue();
+
+        //set targetscore
+        targetScore = getTargetScore();
+        $("#targetscore").text(targetScore);
+
+        //onclick add button value to playerscore
+        $("#red").on("click", function() {
+            playerScore = playerScore + redVal;
+            //console.log(playerScore);
+            $("#playerscore").text(playerScore);
+            if(targetScore === playerScore) {
+                wins++;
+                $("#wins").text(wins);
+                reset(); 
+            }else if(targetScore < playerScore){
+                losses++;
+                $("#losses").text(losses);
+                reset();      
+            };
+        });
+        $("#blue").on("click", function() {
+            playerScore = playerScore + blueVal;
+            //console.log(playerScore);
+            $("#playerscore").text(playerScore);
+            if(targetScore === playerScore) {
+                wins++;
+                $("#wins").text(wins);
+                reset();
+            }else if(targetScore < playerScore){
+                losses++;
+                $("#losses").text(losses);
+                reset();
+            };
+        });
+        $("#yellow").on("click", function() {
+            playerScore = playerScore + yellowVal;
+            //console.log(playerScore);
+            $("#playerscore").text(playerScore);
+            if(targetScore === playerScore) {
+                wins++;
+                $("#wins").text(wins);
+                reset();
+            }else if(targetScore < playerScore){
+                losses++;
+                $("#losses").text(losses);
+                reset();
+            };
+        });
+        $("#green").on("click", function() {
+            playerScore = playerScore + greenVal;
+            //console.log(playerScore);
+            $("#playerscore").text(playerScore);
+            if(targetScore === playerScore) {
+                wins++;
+                $("#wins").text(wins);
+                reset();
+            }else if(targetScore < playerScore){
+                losses++;
+                $("#losses").text(losses);
+                reset();
+            };
+        });
+
+        function reset() {
+            playerScore = 0;
+            $("#playerscore").text(playerScore);
+            targetScore = getTargetScore();
+            $("#targetscore").text(targetScore);
+            redVal = getCrystalValue();
+            blueVal = getCrystalValue();
+            yellowVal = getCrystalValue();
+            greenVal = getCrystalValue();
+        }
+        
+
+
+        
+    </script>
+
+
+
+</body>
+</html>
